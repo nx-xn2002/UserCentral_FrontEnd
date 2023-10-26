@@ -2,57 +2,21 @@ export default [
   {
     path: '/user',
     layout: false,
-    routes: [
-      {
-        name: 'login',
-        path: '/user/login',
-        component: './user/Login',
-      },
-      {
-        component: './404',
-      },
-    ],
+    name: '登录',
+    routes: [{path: '/user/login', component: './user/Login'}, {component: './404'}],
   },
-  {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
-  },
+  {name: '欢迎页面', path: '/welcome', icon: 'smile', component: './Welcome'},
   {
     path: '/admin',
-    name: 'admin',
     icon: 'crown',
     access: 'canAdmin',
+    name: '管理员页面',
     routes: [
-      {
-        path: '/admin/sub-page',
-        name: 'sub-page',
-        icon: 'smile',
-        component: './Welcome',
-      },
-      {
-        component: './404',
-      },
+      {path: '/admin/sub-page', icon: 'smile', component: './Welcome'},
+      {component: './404'},
     ],
   },
-  {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
-  },
-  {
-    path: '/',
-    redirect: '/welcome',
-  },
-  {
-    name: '分析页',
-    icon: 'smile',
-    path: '/nxx',
-    component: './DashboardAnalysis',
-  },
-  {
-    component: './404',
-  },
+  {name: '表单页面', icon: 'table', path: '/list', component: './TableList'},
+  {path: '/', redirect: '/welcome'},
+  {component: './404'},
 ];
