@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
-import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+import {login} from '@/services/ant-design-pro/api';
+import {getFakeCaptcha} from '@/services/ant-design-pro/login';
 import {
   AlipayCircleOutlined,
   LockOutlined,
@@ -15,13 +15,15 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
-import { Alert, message, Tabs } from 'antd';
-import React, { useState } from 'react';
-import { history, useModel } from 'umi';
+import {Alert, message, Tabs} from 'antd';
+import React, {useState} from 'react';
+import {history, useModel} from 'umi';
 import styles from './index.less';
+import {SYSTEM_LOGO} from "@/contants";
+
 const LoginMessage: React.FC<{
   content: string;
-}> = ({ content }) => (
+}> = ({content}) => (
   <Alert
     style={{
       marginBottom: 24,
@@ -34,7 +36,7 @@ const LoginMessage: React.FC<{
 const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
-  const { initialState, setInitialState } = useModel('@@initialState');
+  const {initialState, setInitialState} = useModel('@@initialState');
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
@@ -57,8 +59,8 @@ const Login: React.FC = () => {
         await fetchUserInfo();
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
-        const { query } = history.location;
-        const { redirect } = query as {
+        const {query} = history.location;
+        const {redirect} = query as {
           redirect: string;
         };
         history.push(redirect || '/');
@@ -72,34 +74,34 @@ const Login: React.FC = () => {
       message.error(defaultLoginFailureMessage);
     }
   };
-  const { status, type: loginType } = userLoginState;
+  const {status, type: loginType} = userLoginState;
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <LoginForm
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="Ant Design"
-          subTitle={'Ant Design 是西湖区最具影响力的 Web 设计规范'}
+          logo={<img alt="logo" src={SYSTEM_LOGO}/>}
+          title="NX 用户中心"
+          subTitle={'我的全栈CRUD入门项目'}
           initialValues={{
             autoLogin: true,
           }}
           actions={[
             '其他登录方式 :',
-            <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.icon} />,
-            <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={styles.icon} />,
-            <WeiboCircleOutlined key="WeiboCircleOutlined" className={styles.icon} />,
+            <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.icon}/>,
+            <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={styles.icon}/>,
+            <WeiboCircleOutlined key="WeiboCircleOutlined" className={styles.icon}/>,
           ]}
           onFinish={async (values) => {
             await handleSubmit(values as API.LoginParams);
           }}
         >
           <Tabs activeKey={type} onChange={setType}>
-            <Tabs.TabPane key="account" tab={'账户密码登录'} />
-            <Tabs.TabPane key="mobile" tab={'手机号登录'} />
+            <Tabs.TabPane key="account" tab={'账户密码登录'}/>
+            <Tabs.TabPane key="mobile" tab={'手机号登录'}/>
           </Tabs>
 
           {status === 'error' && loginType === 'account' && (
-            <LoginMessage content={'错误的用户名和密码(admin/ant.design)'} />
+            <LoginMessage content={'错误的用户名和密码(admin/ant.design)'}/>
           )}
           {type === 'account' && (
             <>
@@ -107,7 +109,7 @@ const Login: React.FC = () => {
                 name="username"
                 fieldProps={{
                   size: 'large',
-                  prefix: <UserOutlined className={styles.prefixIcon} />,
+                  prefix: <UserOutlined className={styles.prefixIcon}/>,
                 }}
                 placeholder={'用户名: admin or user'}
                 rules={[
@@ -121,7 +123,7 @@ const Login: React.FC = () => {
                 name="password"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined className={styles.prefixIcon} />,
+                  prefix: <LockOutlined className={styles.prefixIcon}/>,
                 }}
                 placeholder={'密码: ant.design'}
                 rules={[
@@ -134,13 +136,13 @@ const Login: React.FC = () => {
             </>
           )}
 
-          {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
+          {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误"/>}
           {type === 'mobile' && (
             <>
               <ProFormText
                 fieldProps={{
                   size: 'large',
-                  prefix: <MobileOutlined className={styles.prefixIcon} />,
+                  prefix: <MobileOutlined className={styles.prefixIcon}/>,
                 }}
                 name="mobile"
                 placeholder={'请输入手机号！'}
@@ -158,7 +160,7 @@ const Login: React.FC = () => {
               <ProFormCaptcha
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined className={styles.prefixIcon} />,
+                  prefix: <LockOutlined className={styles.prefixIcon}/>,
                 }}
                 captchaProps={{
                   size: 'large',
@@ -181,6 +183,7 @@ const Login: React.FC = () => {
                   const result = await getFakeCaptcha({
                     phone,
                   });
+                  // @ts-ignore
                   if (result === false) {
                     return;
                   }
@@ -207,7 +210,7 @@ const Login: React.FC = () => {
           </div>
         </LoginForm>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };
