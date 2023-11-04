@@ -1,17 +1,10 @@
 import Footer from '@/components/Footer';
 import {login} from '@/services/ant-design-pro/api';
-import {
-  LockOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
-import {
-  LoginForm,
-  ProFormCheckbox,
-  ProFormText,
-} from '@ant-design/pro-components';
-import {Alert, message, Tabs} from 'antd';
+import {LockOutlined, UserOutlined,} from '@ant-design/icons';
+import {LoginForm, ProFormCheckbox, ProFormText,} from '@ant-design/pro-components';
+import {Alert, Divider, message, Space, Tabs} from 'antd';
 import React, {useState} from 'react';
-import {history, useModel} from 'umi';
+import {history, Link, useModel} from 'umi';
 import styles from './index.less';
 import {SYSTEM_LOGO} from "@/contants";
 
@@ -34,7 +27,7 @@ const Login: React.FC = () => {
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
-      await setInitialState((s) => ({
+      await setInitialState((s: any) => ({
         ...s,
         currentUser: userInfo,
       }));
@@ -73,7 +66,11 @@ const Login: React.FC = () => {
         <LoginForm
           logo={<img alt="logo" src={SYSTEM_LOGO}/>}
           title="NX 用户中心"
-          subTitle={'我的全栈CRUD入门项目'}
+          subTitle={
+            <>
+              <p>我的全栈CRUD入门项目</p>
+            </>
+          }
           initialValues={{
             autoLogin: true,
           }}
@@ -130,19 +127,22 @@ const Login: React.FC = () => {
               marginBottom: 24,
             }}
           >
-            <ProFormCheckbox noStyle name="autoLogin">
-              自动登录
-            </ProFormCheckbox>
-            <a
-              style={{
-                float: 'right',
-              }}
-              href="mailto:1870230468@bupt.edu.cn"
-              target="_blank"
-              rel="noreferrer"
-            >
-              忘记密码请联系倪响
-            </a>
+            <Space split={<Divider type='vertical'/>}>
+              <ProFormCheckbox noStyle name="autoLogin">
+                自动登录
+              </ProFormCheckbox>
+              <Link to="/user/register">新用户注册</Link>
+              <a
+                style={{
+                  float: 'right',
+                }}
+                href="mailto:1870230468@bupt.edu.cn"
+                target="_blank"
+                rel="noreferrer"
+              >
+                忘记密码
+              </a>
+            </Space>
           </div>
         </LoginForm>
       </div>

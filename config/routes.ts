@@ -2,8 +2,16 @@ export default [
   {
     path: '/user',
     layout: false,
-    name: '登录',
-    routes: [{path: '/user/login', component: './user/Login'}, {component: './404'}],
+    routes: [
+      {
+        path: '/user', routes:
+          [
+            {name: '登录', path: '/user/login', component: './user/Login'},
+            {name: '注册', path: '/user/register', component: './user/Register'}
+          ]
+      },
+      {component: './404'}
+    ],
   },
   {name: '欢迎页面', path: '/welcome', icon: 'smile', component: './Welcome'},
   {
