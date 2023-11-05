@@ -2,14 +2,13 @@
 /* eslint-disable */
 import {request} from 'umi';
 
-/** 获取当前的用户 GET /api/currentUser */
+/** 获取当前的用户 GET /api/user/current */
 export async function currentUser(options?: { [key: string]: any }) {
-  return request<{
-    data: API.CurrentUser;
-  }>('/api/currentUser', {
-    method: 'GET',
-    ...(options || {}),
-  });
+  return request<API.CurrentUser>('/api/user/current',
+    {
+      method: 'GET',
+      ...(options || {}),
+    });
 }
 
 /** 退出登录接口 POST /api/login/outLogin */
@@ -40,6 +39,14 @@ export async function register(body: API.RegisterParams, options?: { [key: strin
       'Content-Type': 'application/json',
     },
     data: body,
+    ...(options || {}),
+  });
+}
+
+/** 搜索用户 GET /api/user/search */
+export async function searchUsers(options?: { [key: string]: any }) {
+  return request<API.CurrentUser[]>('/api/user/search', {
+    method: 'GET',
     ...(options || {}),
   });
 }

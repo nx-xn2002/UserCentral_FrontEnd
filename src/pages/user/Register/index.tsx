@@ -18,10 +18,10 @@ const Register: React.FC = () => {
       message.error('两次输入的密码不一致');
       return;
     }
-
+    let id = 0;
     try {
       //注册
-      const id = await register(values);
+      id = await register(values);
 
       if (id > 0) {
         const defaultLoginSuccessMessage = '注册成功！';
@@ -38,7 +38,15 @@ const Register: React.FC = () => {
         throw new Error(`register error id = ${id}`);
       }
     } catch (error) {
-      message.error('注册失败，请重试！');
+      if (id === -1) {
+        message.error('用户名已存在');
+      } else if (id === -2) {
+        message.error('用户名格式错误,不允许存在特殊字符');
+      } else if (id === -3) {
+        message.error('服务器异常');
+      } else {
+        message.error('注册失败，请重试！');
+      }
     }
   };
   return (
@@ -77,6 +85,10 @@ const Register: React.FC = () => {
                     required: true,
                     message: '账号是必填项！',
                   },
+                  {
+                    min: 4,
+                    message: '账号长度至少为4位'
+                  }
                 ]}
               />
               <ProFormText.Password
