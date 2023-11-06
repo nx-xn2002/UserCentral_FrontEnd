@@ -21,7 +21,7 @@ const LoginMessage: React.FC<{
   />
 );
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
+  const [userLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const {initialState, setInitialState} = useModel('@@initialState');
   const fetchUserInfo = async () => {
@@ -53,8 +53,8 @@ const Login: React.FC = () => {
         history.push(redirect || '/');
         return;
       }
-      setUserLoginState(res.data);
-      throw new Error(res.message);
+      //setUserLoginState(user);
+      throw new Error(res.description);
     } catch (error) {
       // @ts-ignore
       message.error(error.message.toString());
