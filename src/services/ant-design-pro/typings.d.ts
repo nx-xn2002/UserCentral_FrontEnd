@@ -26,7 +26,15 @@ declare namespace API {
     current?: number;
     pageSize?: number;
   };
-
+  /**
+   * 后端对接通用返回
+   */
+  type BaseResponse<T> = {
+    code: number;
+    data: T;
+    message: string;
+    description: string;
+  };
   type RuleListItem = {
     key?: number;
     disabled?: boolean;

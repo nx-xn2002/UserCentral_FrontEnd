@@ -1,20 +1,21 @@
-import { PageContainer } from '@ant-design/pro-components';
-import { Alert, Card, Typography } from 'antd';
+import {PageContainer} from '@ant-design/pro-components';
+import {Alert, Card, Typography} from 'antd';
 import React from 'react';
-import styles from './Welcome.less';
-const CodePreview: React.FC = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
+// import styles from './Welcome.less';
+
+// const CodePreview: React.FC = ({children}) => (
+//   <pre className={styles.pre}>
+//     <code>
+//       <Typography.Text copyable>{children}</Typography.Text>
+//     </code>
+//   </pre>
+// );
 const Welcome: React.FC = () => {
   return (
     <PageContainer>
       <Card>
         <Alert
-          message={'更快更强的重型组件，已经发布。'}
+          message={'NX 用户中心，已经发布。'}
           type="success"
           showIcon
           banner
@@ -32,7 +33,8 @@ const Welcome: React.FC = () => {
             欢迎使用
           </a>
         </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-components</CodePreview>
+        {/*代码块*/}
+        {/*<CodePreview>yarn add @ant-design/pro-components</CodePreview>*/}
       </Card>
     </PageContainer>
   );

@@ -36,11 +36,11 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      const user = await login({
+      const res = await login({
         ...values,
         type,
       });
-      if (user) {
+      if (res.code === 0) {
         const defaultLoginSuccessMessage = '登录成功！';
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
@@ -53,10 +53,11 @@ const Login: React.FC = () => {
         history.push(redirect || '/');
         return;
       }
-      setUserLoginState(user);
-      throw new Error('login error');
+      setUserLoginState(res.data);
+      throw new Error(res.message);
     } catch (error) {
-      message.error('账号或密码错误，请重试！');
+      // @ts-ignore
+      message.error(error.message.toString());
     }
   };
   const {status, type: loginType} = userLoginState;

@@ -18,12 +18,11 @@ const Register: React.FC = () => {
       message.error('两次输入的密码不一致');
       return;
     }
-    let id = 0;
     try {
       //注册
-      id = await register(values);
+      const res = await register(values);
 
-      if (id > 0) {
+      if (res.code === 0) {
         const defaultLoginSuccessMessage = '注册成功！';
         message.success(defaultLoginSuccessMessage);
         /** 此方法会跳转到 redirect 参数所在的位置 */
@@ -35,18 +34,11 @@ const Register: React.FC = () => {
         });
         return;
       } else {
-        throw new Error(`register error id = ${id}`);
+        throw new Error(res.description);
       }
     } catch (error) {
-      if (id === -1) {
-        message.error('用户名已存在');
-      } else if (id === -2) {
-        message.error('用户名格式错误,不允许存在特殊字符');
-      } else if (id === -3) {
-        message.error('服务器异常');
-      } else {
-        message.error('注册失败，请重试！');
-      }
+      // @ts-ignore
+      message.error(error.message.toString());
     }
   };
   return (
