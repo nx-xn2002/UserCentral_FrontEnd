@@ -14,12 +14,12 @@
 
 #### 注册页面
 
-![注册页面](images/注册页面.png)
+![注册页面](./public/readmeImgs/注册页面.png)
 
 #### 登录页面
 
-![登录页面](images/登录页面.png)
+![登录页面](./public/readmeImgs/登录页面.png)
 
 #### 用户表管理页面
 
-![用户表管理页面](images/用户表管理页面.png)
+![用户表管理页面](./public/readmeImgs/用户表管理页面.png)
